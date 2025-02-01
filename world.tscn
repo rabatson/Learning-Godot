@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfh3oaoqo2kh2"]
+
+[ext_resource type="PackedScene" uid="uid://b6qeylyddrshi" path="res://player.tscn" id="1_6shij"]
+[ext_resource type="PackedScene" uid="uid://dy3kiem3d58mb" path="res://debug_info.tscn" id="2_la7ep"]
+[ext_resource type="Script" path="res://Player.cs" id="2_yboix"]
+[ext_resource type="PackedScene" uid="uid://dmmjxc3h8pi76" path="res://hud.tscn" id="3_id6tk"]
+[ext_resource type="PackedScene" uid="uid://s6nqbxpq8f24" path="res://entity.tscn" id="4_eq8wp"]
+
+[node name="world" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_6shij")]
+position = Vector2(275, 250)
+script = ExtResource("2_yboix")
+
+[node name="HUD" parent="." instance=ExtResource("3_id6tk")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 597.0
+offset_bottom = 597.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="debug_info" parent="." instance=ExtResource("2_la7ep")]
+
+[node name="Bob" parent="." instance=ExtResource("4_eq8wp")]
+visible = false
+
+[connection signal="debug_direction" from="Player" to="debug_info" method="_on_player_debug_direction"]
+[connection signal="debug_velocity" from="Player" to="debug_info" method="_on_player_debug_velocity"]

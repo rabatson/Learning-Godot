@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6qeylyddrshi"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_q6tik"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fvxgc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4u4t"]
+size = Vector2(128, 256)
+
+[node name="Player" type="CharacterBody2D"]
+slide_on_ceiling = false
+script = ExtResource("1_q6tik")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(128, 256)
+texture = SubResource("PlaceholderTexture2D_fvxgc")
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_e4u4t")
+
+[node name="EntityDetector" type="RayCast2D" parent="."]
+position = Vector2(1, -100)
+rotation = 1.5708
+target_position = Vector2(100, 0)
+
+[node name="EntityDetectorVisualization" type="Line2D" parent="EntityDetector"]
+visible = false
+points = PackedVector2Array(0, 0, 100, 0, 93.885, 2.54)
+width = 2.0

@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmmjxc3h8pi76"]
+
+[ext_resource type="Script" path="res://hud.gd" id="1_nfqrr"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nfqrr")
+
+[node name="StaminaBar" type="ColorRect" parent="."]
+layout_mode = 2
+offset_right = 157.0
+offset_bottom = 25.0
+color = Color(0, 0, 1, 1)
+
+[node name="StaminaLabel" type="Label" parent="StaminaBar"]
+layout_mode = 0
+offset_right = 74.0
+offset_bottom = 23.0
+text = "Stamina
+"
+
+[node name="HealthBar" type="ColorRect" parent="."]
+layout_mode = 0
+offset_top = 26.0
+offset_right = 157.0
+offset_bottom = 51.0
+color = Color(1, 0, 0, 1)
+
+[node name="HealthLabel" type="Label" parent="HealthBar"]
+layout_mode = 0
+offset_right = 74.0
+offset_bottom = 23.0
+text = "Health
+"

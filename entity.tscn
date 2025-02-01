@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://s6nqbxpq8f24"]
+
+[ext_resource type="Script" path="res://entity.gd" id="1_5janu"]
+
+[sub_resource type="Gradient" id="Gradient_rytnm"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y0ybd"]
+gradient = SubResource("Gradient_rytnm")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qvfir"]
+size = Vector2(128, 256)
+
+[node name="Entity" type="CharacterBody2D"]
+script = ExtResource("1_5janu")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(128, 256)
+texture = SubResource("GradientTexture1D_y0ybd")
+
+[node name="EntityCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qvfir")
