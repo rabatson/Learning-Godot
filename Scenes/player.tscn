@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b6qeylyddrshi"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_q6tik"]
+[ext_resource type="Script" path="res://Scripts/Player.cs" id="1_216nw"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fvxgc"]
 
@@ -9,7 +9,7 @@ size = Vector2(128, 256)
 
 [node name="Player" type="CharacterBody2D"]
 slide_on_ceiling = false
-script = ExtResource("1_q6tik")
+script = ExtResource("1_216nw")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(128, 256)
