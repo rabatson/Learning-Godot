@@ -10,6 +10,8 @@ size = Vector2(128, 256)
 [node name="Player" type="CharacterBody2D"]
 slide_on_ceiling = false
 script = ExtResource("1_216nw")
+Health = 100.0
+Stamina = 85.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(128, 256)

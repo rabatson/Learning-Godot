@@ -1,43 +1,56 @@
 using Godot;
 
-public partial class Player : CharacterBody2D
+public partial class Player : Entity
 {
-	public const float BASE_MOVE_SPEED = 150.0f;
-	public float move_speed = BASE_MOVE_SPEED;
-	public float run_speed = 250.0f;
-	public bool accept_input = true;
+	[Export]
+	public float BASE_MOVE_SPEED { get; set; } = 150.0f;
+	[Export]
+	public float MoveSpeed { get; set; }
+	[Export]
+	public float RunSpeed { get; set; } = 250.0f;
+	[Export]
+	public bool AcceptInput { get; set; } = true;
 
 	[Signal]
-	public delegate void debug_velocityEventHandler(Vector2 vector);
+	public delegate void DebugVelocityEventHandler(Vector2 vector);
+	[Signal]
+	public delegate void DebugDirectionEventHandler(double angle);
 
 	[Signal]
-	public delegate void debug_directionEventHandler(string direction);
+	public delegate void SetHealthEventHandler(double value);
+	[Signal]
+	public delegate void SetMaxHealthEventHandler(double value);
+	[Signal]
+	public delegate void SetStaminaEventHandler(double value);
+	[Signal]
+	public delegate void SetMaxStaminaEventHandler(double value);
 
 	private RayCast2D EntityDetector;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		MoveSpeed = BASE_MOVE_SPEED;
 		EntityDetector = GetNode<RayCast2D>("EntityDetector");
-		if(OS.IsDebugBuild()){
+		if (OS.IsDebugBuild())
+		{
 			EntityDetector.GetNode<Line2D>("EntityDetectorVisualization").Visible = true;
 		}
-		// health = 99
-		// max_health = 101
-		// max_stamina = 102
-
-		// emit_signal("set_health", health)
-		// emit_signal("set_max_health", max_health)
-		// emit_signal("set_stamina", stamina)
-		// emit_signal("set_max_stamina", max_stamina)
+		
+		// these signals aren't getting called on _Ready - they don't appear to be connected until after the _Ready has already been called
+		// todo: figure that out - it SHOULD work as this same logic existed in the gdscript variant
+		EmitSignal(SignalName.SetHealth, Health);
+		EmitSignal(SignalName.SetMaxHealth, Health);
+		EmitSignal(SignalName.SetStamina, Health);
+		EmitSignal(SignalName.SetMaxStamina, Health);
 
 		// Set an arbitrary south direction for the debug ui
-		EmitSignal(SignalName.debug_direction, 1.5);
+		EmitSignal(SignalName.DebugDirection, 1.5);
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (accept_input)
+		if (AcceptInput)
 		{
 			GetInput();
 			MoveAndSlide();
@@ -61,16 +74,16 @@ public partial class Player : CharacterBody2D
 		// Speed up the movement for run, slow it down for walk
 		if (Input.IsActionPressed("run"))
 		{
-			move_speed = run_speed;
+			MoveSpeed = RunSpeed;
 		}
 		else
 		{
-			move_speed = BASE_MOVE_SPEED;
+			MoveSpeed = BASE_MOVE_SPEED;
 		}
 
 		// Set velocity based on input direction
-		Velocity = input_direction * (float)move_speed;
-		EmitSignal(SignalName.debug_velocity, Velocity);
+		Velocity = input_direction * (float)MoveSpeed;
+		EmitSignal(SignalName.DebugVelocity, Velocity);
 		SetPlayerLookDirection(Velocity);
 	}
 
@@ -79,7 +92,7 @@ public partial class Player : CharacterBody2D
 		if (vector != Vector2.Zero)
 		{
 			float angle = vector.Angle();
-			EmitSignal(SignalName.debug_direction, angle);
+			EmitSignal(SignalName.DebugDirection, angle);
 			// Set the raycast rotation to whatever direction it is
 			EntityDetector.Rotation = angle;
 		}

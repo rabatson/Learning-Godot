@@ -23,6 +23,3 @@ grow_vertical = 1
 
 [node name="Bob" parent="." instance=ExtResource("4_eq8wp")]
 visible = false
-
-[connection signal="debug_direction" from="Player" to="debug_info" method="_on_player_debug_direction"]
-[connection signal="debug_velocity" from="Player" to="debug_info" method="_on_player_debug_velocity"]

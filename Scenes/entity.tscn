@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://s6nqbxpq8f24"]
 
-[ext_resource type="Script" path="res://Scripts/entity.gd" id="1_5janu"]
+[ext_resource type="Script" path="res://Scripts/Entity.cs" id="1_hhdmf"]
 
 [sub_resource type="Gradient" id="Gradient_rytnm"]
 
@@ -11,7 +11,7 @@ gradient = SubResource("Gradient_rytnm")
 size = Vector2(128, 256)
 
 [node name="Entity" type="CharacterBody2D"]
-script = ExtResource("1_5janu")
+script = ExtResource("1_hhdmf")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(128, 256)
